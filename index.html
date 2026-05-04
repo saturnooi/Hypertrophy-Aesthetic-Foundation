@@ -883,7 +883,154 @@ body {
   text-align: right;
 }
 
-/* ===== FOOTER ===== */
+/* ===== WARMUP VIDEO ===== */
+.warmup-video {
+  margin-bottom: 14px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+}
+.warmup-video.is-stretch {
+  margin-top: 18px;
+  margin-bottom: 0;
+  border-color: var(--border);
+  position: relative;
+}
+.warmup-video.is-stretch::before {
+  content: 'POST-WORKOUT RECOVERY';
+  position: absolute;
+  top: -10px;
+  left: 14px;
+  background: var(--bg);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--push);
+  padding: 0 8px;
+  font-weight: 600;
+  z-index: 2;
+}
+.warmup-video-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.warmup-video-icon {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: var(--danger);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.warmup-video-icon svg {
+  width: 10px; height: 10px;
+  fill: white;
+  margin-left: 1px;
+}
+.warmup-video-title {
+  flex: 1;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.warmup-video-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-3);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.warmup-video-thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  cursor: pointer;
+  background: #000;
+  overflow: hidden;
+}
+.warmup-video-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease, filter 0.3s ease;
+  filter: brightness(0.85);
+}
+.warmup-video-thumb:hover img {
+  transform: scale(1.03);
+  filter: brightness(1);
+}
+.warmup-video-play {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  background: rgba(255, 90, 110, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.5), 0 0 0 6px rgba(255, 90, 110, 0.2);
+  transition: all 0.2s ease;
+}
+.warmup-video-thumb:hover .warmup-video-play {
+  transform: translate(-50%, -50%) scale(1.08);
+  box-shadow: 0 4px 32px rgba(0,0,0,0.6), 0 0 0 10px rgba(255, 90, 110, 0.25);
+}
+.warmup-video-play svg {
+  width: 22px; height: 22px;
+  fill: white;
+  margin-left: 3px;
+}
+.warmup-video-thumb iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+.warmup-video-meta {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 10px;
+  pointer-events: none;
+}
+.warmup-video-label {
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+}
+.warmup-video-yt {
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  pointer-events: auto;
+  transition: background 0.15s;
+}
+.warmup-video-yt:hover { background: rgba(255, 90, 110, 0.85); }
 .footer {
   margin-top: 48px;
   padding: 32px 0 40px;
@@ -1436,6 +1583,68 @@ function makeCheckBtn(exId, isChecked) {
 
 // Process each training panel (1-5, skip rest panels)
 const trainingPanels = ['1', '2', '3', '4', '5'];
+
+// Video config — single warm-up for all days, day-specific stretch
+const WARMUP_VIDEO_ID = 'Zu8NoDWyZdI';
+
+// Stretch video per training day (matched to muscle groups worked)
+const stretchVideoByDay = {
+  '1': { id: '0ZkuKwjyWtI', title: '5 min Upper Body Cool Down', sub: 'อก · ไหล่ · ไตรเซป' },
+  '2': { id: 'DvJtgLcNPEo', title: '6 min Leg Day Cool Down',    sub: 'ขา · Glute · น่อง' },
+  '3': { id: 'DrkBSODtE5s', title: '5 min Back Static Stretch',  sub: 'หลัง · Lat · ไบเซป' },
+  '4': { id: 'R56k41NLIoI', title: '5 min Full Body Cool Down',  sub: 'Core · ทั่วทั้งตัว' },
+  '5': { id: 'R56k41NLIoI', title: '5 min Full Body Cool Down',  sub: 'ไหล่ · หลัง · Glute' }
+};
+
+function buildVideoCard(opts) {
+  // opts: { videoId, kind: 'warmup' | 'stretch', title, sub }
+  const isWarmup = opts.kind === 'warmup';
+  const accentVar = isWarmup ? 'var(--danger)' : 'var(--push)';
+  const labelText = isWarmup ? '▶ WARM UP' : '▶ COOL DOWN';
+  const sectionLabel = isWarmup ? 'เล่นก่อนเริ่ม' : 'เล่นหลังเสร็จ';
+  const thumb = `https://img.youtube.com/vi/${opts.videoId}/maxresdefault.jpg`;
+  const thumbFallback = `https://img.youtube.com/vi/${opts.videoId}/hqdefault.jpg`;
+  const url = `https://www.youtube.com/watch?v=${opts.videoId}`;
+
+  const wrap = document.createElement('div');
+  wrap.className = 'warmup-video' + (isWarmup ? '' : ' is-stretch');
+  wrap.style.setProperty('--video-accent', accentVar);
+  wrap.innerHTML = `
+    <div class="warmup-video-header">
+      <div class="warmup-video-icon" style="background:${accentVar};">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+      <div class="warmup-video-title">${opts.title}</div>
+      <div class="warmup-video-sub">${sectionLabel}</div>
+    </div>
+    <div class="warmup-video-thumb" role="button" tabindex="0" aria-label="เล่นวิดีโอ">
+      <img src="${thumb}" alt="Video thumbnail" onerror="this.src='${thumbFallback}'">
+      <div class="warmup-video-play" style="background:${accentVar};box-shadow:0 4px 24px rgba(0,0,0,0.5), 0 0 0 6px rgba(255,255,255,0.08);">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+      <div class="warmup-video-meta">
+        <span class="warmup-video-label">${labelText} · ${opts.sub}</span>
+        <a class="warmup-video-yt" href="${url}" target="_blank" rel="noopener" onclick="event.stopPropagation();">YouTube ↗</a>
+      </div>
+    </div>
+  `;
+  // Lazy load iframe on click
+  const thumbEl = wrap.querySelector('.warmup-video-thumb');
+  const playVideo = () => {
+    thumbEl.innerHTML = `<iframe
+      src="https://www.youtube.com/embed/${opts.videoId}?autoplay=1&rel=0"
+      title="${opts.title}"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen></iframe>`;
+    thumbEl.style.cursor = 'default';
+  };
+  thumbEl.addEventListener('click', playVideo);
+  thumbEl.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); playVideo(); }
+  });
+  return wrap;
+}
+
 trainingPanels.forEach(panelId => {
   const panel = document.querySelector(`.day-panel[data-panel="${panelId}"]`);
   if (!panel) return;
@@ -1455,6 +1664,27 @@ trainingPanels.forEach(panelId => {
   // Insert after panel-header
   const panelHeader = panel.querySelector('.panel-header');
   panelHeader.insertAdjacentElement('afterend', progressBar);
+
+  // --- Insert warm-up video right after progress bar ---
+  const warmupCard = buildVideoCard({
+    videoId: WARMUP_VIDEO_ID,
+    kind: 'warmup',
+    title: 'Warm-Up',
+    sub: 'เตรียมร่างกาย'
+  });
+  progressBar.insertAdjacentElement('afterend', warmupCard);
+
+  // --- Append stretch video at the end of panel ---
+  const stretchData = stretchVideoByDay[panelId];
+  if (stretchData) {
+    const stretchCard = buildVideoCard({
+      videoId: stretchData.id,
+      kind: 'stretch',
+      title: stretchData.title,
+      sub: stretchData.sub
+    });
+    panel.appendChild(stretchCard);
+  }
 
   // --- Inject checkboxes into table rows ---
   const table = panel.querySelector('.ex-table');
