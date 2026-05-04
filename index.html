@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 1 — โปรแกรมฝึก 4 สัปดาห์</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0F1115;
+  --surface: #161922;
+  --surface-2: #1C2030;
+  --surface-3: #242938;
+  --border: #2A2F40;
+  --border-strong: #3A4055;
+  --text: #ECEEF5;
+  --text-2: #A0A6B8;
+  --text-3: #6B7185;
+  --accent: #B8FF3C;
+  --accent-dim: #8BC72A;
+  --push: #4FA3FF;
+  --pull: #FF7A59;
+  --legs: #B8FF3C;
+  --core: #C77DFF;
+  --aesthetic: #FFB84F;
+  --danger: #FF5A6E;
+  --radius: 10px;
+  --radius-sm: 6px;
+  --radius-lg: 16px;
+  --shadow: 0 1px 0 rgba(255,255,255,0.04) inset, 0 8px 24px rgba(0,0,0,0.25);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'IBM Plex Sans Thai', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  font-size: 15px;
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(184,255,60,0.06), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(79,163,255,0.04), transparent 60%);
+}
+.container { max-width: 880px; margin: 0 auto; padding: 0 16px; }
+
+/* ===== HEADER ===== */
+.hero {
+  padding: 32px 0 28px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 28px; height: 2px;
+  background: var(--accent);
+  display: inline-block;
+}
+.hero h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(28px, 6vw, 40px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+.hero h1 .accent { color: var(--accent); }
+.hero p {
+  color: var(--text-2);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+/* ===== STICKY NAV ===== */
+.tabnav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(15,17,21,0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  margin: 0 -16px 24px;
+  padding: 10px 16px;
+}
+.tabnav-inner {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  max-width: 880px;
+  margin: 0 auto;
+}
+.tabnav-inner::-webkit-scrollbar { display: none; }
+.tabnav a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  border-radius: 999px;
+  color: var(--text-2);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+.tabnav a:hover { color: var(--text); background: var(--surface); }
+.tabnav a.active { color: var(--accent); border-color: var(--border-strong); background: var(--surface); }
+
+/* ===== METRICS ===== */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 36px;
+}
+.metric {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 12px;
+  position: relative;
+  overflow: hidden;
+}
+.metric::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
+}
+.metric-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.metric-val {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.metric-unit {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-3);
+  margin-left: 2px;
+}
+.metric.target .metric-val { color: var(--accent); }
+
+/* ===== SECTIONS ===== */
+.section { margin-bottom: 48px; scroll-margin-top: 80px; }
+.section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  gap: 12px;
+}
+.section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.section-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-3);
+  letter-spacing: 0.1em;
+}
+.section-sub {
+  color: var(--text-2);
+  font-size: 13px;
+  margin-top: -8px;
+  margin-bottom: 20px;
+}
+
+/* ===== DAY TABS ===== */
+.day-tabs {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.day-tab {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  font-family: inherit;
+  color: var(--text);
+}
+.day-tab::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--day-color, var(--border-strong));
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+.day-tab:hover { border-color: var(--border-strong); transform: translateY(-1px); }
+.day-tab:hover::before { opacity: 1; }
+.day-tab.active {
+  background: var(--surface-2);
+  border-color: var(--day-color);
+  box-shadow: 0 0 0 1px var(--day-color), 0 4px 12px rgba(0,0,0,0.3);
+}
+.day-tab.active::before { opacity: 1; width: 4px; }
+.day-tab[data-day="1"] { --day-color: var(--push); }
+.day-tab[data-day="2"] { --day-color: var(--legs); }
+.day-tab[data-day="3"] { --day-color: var(--pull); }
+.day-tab[data-day="4"] { --day-color: var(--core); }
+.day-tab[data-day="5"] { --day-color: var(--aesthetic); }
+
+.day-tab.rest {
+  --day-color: var(--text-3);
+  cursor: pointer;
+  opacity: 0.55;
+  background: transparent;
+  border-style: dashed;
+}
+.day-tab.rest:hover { transform: none; border-color: var(--border-strong); opacity: 0.8; }
+.day-tab.rest:hover::before { opacity: 0.7; }
+.day-tab.rest .day-name { color: var(--text-3); }
+.day-tab.rest.active {
+  opacity: 1;
+  background: var(--surface-2);
+  border-style: solid;
+}
+
+/* Today badge */
+.today-dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 2px var(--bg), 0 0 8px var(--accent);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.8); }
+}
+
+/* Rest day panel */
+.rest-panel {
+  text-align: center;
+  padding: 60px 20px;
+}
+.rest-panel-icon {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 56px;
+  font-weight: 700;
+  color: var(--text-3);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: 16px;
+  opacity: 0.4;
+}
+.rest-panel-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+.rest-panel-text {
+  color: var(--text-2);
+  font-size: 14px;
+  max-width: 420px;
+  margin: 0 auto 24px;
+  line-height: 1.7;
+}
+.rest-tips {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.rest-tip {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 10px;
+  text-align: center;
+}
+.rest-tip-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.rest-tip-val {
+  font-size: 12px;
+  color: var(--text);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.day-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  margin-bottom: 4px;
+}
+.day-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 2px;
+  color: var(--day-color);
+  letter-spacing: -0.01em;
+}
+.day-muscle {
+  font-size: 11px;
+  color: var(--text-2);
+  line-height: 1.3;
+}
+
+/* ===== DAY DETAIL ===== */
+.day-panel {
+  display: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+.day-panel.active { display: block; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.panel-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--day-color, var(--accent));
+  color: var(--bg);
+  font-weight: 700;
+}
+.panel-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* ===== WARMUP / NOTES ===== */
+.callout {
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  border-left: 3px solid;
+  font-size: 13px;
+  line-height: 1.6;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.callout-icon {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+  letter-spacing: 0.05em;
+  margin-top: 1px;
+}
+.callout p { color: var(--text); }
+.callout-warmup {
+  background: rgba(184,255,60,0.06);
+  border-color: var(--accent);
+}
+.callout-warmup .callout-icon { color: var(--accent); }
+.callout-blue {
+  background: rgba(79,163,255,0.06);
+  border-color: var(--push);
+}
+.callout-blue .callout-icon { color: var(--push); }
+.callout-amber {
+  background: rgba(255,184,79,0.06);
+  border-color: var(--aesthetic);
+}
+.callout-amber .callout-icon { color: var(--aesthetic); }
+.callout-green {
+  background: rgba(184,255,60,0.06);
+  border-color: var(--accent);
+}
+.callout-green .callout-icon { color: var(--accent); }
+.callout-pink {
+  background: rgba(199,125,255,0.06);
+  border-color: var(--core);
+}
+.callout-pink .callout-icon { color: var(--core); }
+
+/* ===== EXERCISE TABLE — DESKTOP ===== */
+.ex-table-wrap {
+  overflow-x: auto;
+  margin: 0 -4px;
+}
+.ex-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 100%;
+}
+.ex-table th {
+  text-align: left;
+  padding: 10px 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+}
+.ex-table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.ex-table tr:last-child td { border-bottom: none; }
+.ex-table tr:hover td { background: var(--surface-2); }
+.ex-name { font-weight: 500; color: var(--text); }
+.ex-spec {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+.rpe-pill {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--surface-3);
+  color: var(--text);
+  white-space: nowrap;
+}
+
+/* ===== EXERCISE CARDS — MOBILE ===== */
+.ex-cards { display: none; flex-direction: column; gap: 8px; }
+.ex-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+}
+.ex-card-name {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+.ex-card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.ex-card-stat { text-align: left; }
+.ex-card-stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.ex-card-stat-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.tag-new {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 700;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* ===== RPE SCALE ===== */
+.rpe-scale {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.rpe-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 12px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.rpe-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--rpe-color);
+}
+.rpe-card[data-rpe="7"] { --rpe-color: var(--accent); }
+.rpe-card[data-rpe="8"] { --rpe-color: var(--aesthetic); }
+.rpe-card[data-rpe="9"] { --rpe-color: var(--pull); }
+.rpe-card[data-rpe="9.5"] { --rpe-color: var(--danger); }
+.rpe-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--rpe-color);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.rpe-label {
+  font-size: 11px;
+  color: var(--text-2);
+  line-height: 1.4;
+}
+.rpe-label strong { color: var(--text); display: block; font-weight: 600; }
+
+/* ===== WEEK TIMELINE ===== */
+.weeks {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+  position: relative;
+}
+.weeks::before {
+  content: '';
+  position: absolute;
+  left: 8%; right: 8%;
+  top: 30px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--aesthetic) 50%, var(--pull) 100%);
+  opacity: 0.3;
+  z-index: 0;
+}
+.week {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  position: relative;
+  z-index: 1;
+}
+.week-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.week-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--week-color);
+  flex-shrink: 0;
+  box-shadow: 0 0 0 3px var(--bg), 0 0 0 4px var(--week-color);
+}
+.week[data-week="1"] { --week-color: var(--accent); }
+.week[data-week="2"] { --week-color: var(--push); }
+.week[data-week="3"] { --week-color: var(--aesthetic); }
+.week[data-week="4"] { --week-color: var(--pull); }
+.week-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  text-transform: uppercase;
+}
+.week-focus {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--week-color);
+  letter-spacing: -0.01em;
+}
+.week-detail {
+  font-size: 12px;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+
+/* ===== MACROS ===== */
+.macros {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.macro {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+}
+.macro::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--macro-glow);
+  opacity: 0.04;
+  pointer-events: none;
+}
+.macro[data-macro="protein"] { --macro-color: var(--push); --macro-glow: radial-gradient(circle at 80% 0%, var(--push), transparent 60%); }
+.macro[data-macro="carbs"] { --macro-color: var(--accent); --macro-glow: radial-gradient(circle at 80% 0%, var(--accent), transparent 60%); }
+.macro[data-macro="fat"] { --macro-color: var(--aesthetic); --macro-glow: radial-gradient(circle at 80% 0%, var(--aesthetic), transparent 60%); }
+.macro-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.macro-val {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--macro-color);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.macro-desc {
+  font-size: 12px;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+
+/* ===== BENCHMARKS ===== */
+.bench-list { display: grid; gap: 8px; }
+.bench {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  transition: border-color 0.2s;
+}
+.bench:hover { border-color: var(--border-strong); }
+.bench-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent);
+  width: 28px;
+  flex-shrink: 0;
+  letter-spacing: -0.02em;
+}
+.bench-body { flex: 1; }
+.bench-text {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+.bench-target {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-3);
+  letter-spacing: 0.04em;
+}
+.bench-target strong { color: var(--accent); }
+
+/* ===== CHECKBOX + PROGRESS ===== */
+.progress-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.progress-track {
+  flex: 1;
+  height: 6px;
+  background: var(--surface-3);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--day-color, var(--accent)), var(--accent));
+  border-radius: 999px;
+  width: 0%;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 8px var(--day-color, var(--accent));
+}
+.progress-stats {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+}
+.progress-stats .done { color: var(--day-color, var(--accent)); }
+.progress-stats .total { color: var(--text-3); }
+.progress-complete {
+  background: linear-gradient(90deg, rgba(184,255,60,0.08), rgba(184,255,60,0.04));
+  border-color: var(--accent);
+}
+.progress-complete .progress-stats::after {
+  content: '✓ DONE';
+  margin-left: 8px;
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+/* Checkbox cell */
+.ex-table th.col-check, .ex-table td.col-check {
+  width: 36px;
+  padding-left: 10px;
+  padding-right: 0;
+}
+.check-btn {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 1.5px solid var(--border-strong);
+  background: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: all 0.15s ease;
+  position: relative;
+  flex-shrink: 0;
+}
+.check-btn:hover {
+  border-color: var(--day-color, var(--accent));
+  background: rgba(184,255,60,0.05);
+}
+.check-btn svg {
+  width: 14px;
+  height: 14px;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  stroke: var(--bg);
+  stroke-width: 3;
+}
+.check-btn.checked {
+  background: var(--day-color, var(--accent));
+  border-color: var(--day-color, var(--accent));
+}
+.check-btn.checked svg {
+  opacity: 1;
+  transform: scale(1);
+}
+.ex-table tr.row-done td.ex-name,
+.ex-table tr.row-done td.ex-spec {
+  opacity: 0.45;
+  text-decoration: line-through;
+  text-decoration-color: var(--text-3);
+}
+.ex-table tr.row-done td .rpe-pill {
+  opacity: 0.5;
+}
+
+/* Mobile card checkbox */
+.ex-card {
+  position: relative;
+  padding-left: 44px;
+}
+.ex-card .check-btn {
+  position: absolute;
+  left: 12px;
+  top: 14px;
+}
+.ex-card.row-done .ex-card-name {
+  opacity: 0.45;
+  text-decoration: line-through;
+  text-decoration-color: var(--text-3);
+}
+.ex-card.row-done .ex-card-stat-val {
+  opacity: 0.55;
+}
+
+/* Reset button */
+.reset-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-3);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.reset-btn:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+  background: var(--surface-2);
+}
+.reset-btn svg {
+  width: 11px;
+  height: 11px;
+}
+
+/* Auto-reset notice */
+.reset-notice {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-3);
+  letter-spacing: 0.05em;
+  margin-top: 8px;
+  text-align: right;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  margin-top: 48px;
+  padding: 32px 0 40px;
+  text-align: center;
+  border-top: 1px solid var(--border);
+  color: var(--text-3);
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.05em;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 720px) {
+  .metrics { grid-template-columns: repeat(2, 1fr); }
+  .day-tabs { grid-template-columns: repeat(7, 1fr); gap: 3px; }
+  .day-tab { padding: 8px 4px; }
+  .day-name { font-size: 10px; }
+  .day-muscle { display: none; }
+  .ex-table-wrap { display: none; }
+  .ex-cards { display: flex; }
+  .rpe-scale { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  .weeks { grid-template-columns: repeat(2, 1fr); }
+  .weeks::before { display: none; }
+  .macros { grid-template-columns: 1fr; }
+  .section-title { font-size: 19px; }
+  .hero { padding: 24px 0 20px; }
+}
+
+@media (max-width: 420px) {
+  body { font-size: 14px; }
+  .container { padding: 0 12px; }
+  .day-num { font-size: 9px; }
+  .day-name { font-size: 9px; letter-spacing: -0.01em; }
+  .ex-card-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ===== PRINT ===== */
+@media print {
+  body { background: white; color: black; }
+  .tabnav { display: none; }
+  .day-panel { display: block !important; page-break-inside: avoid; margin-bottom: 16px; }
+  .day-tabs { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-eyebrow">PHASE 01 / 4 WEEKS</div>
+    <h1>Hypertrophy &amp; <span class="accent">Aesthetic</span><br>Foundation</h1>
+    <p>โปรแกรมฝึก 4 สัปดาห์ · Revised Edition</p>
+  </header>
+
+  <!-- STICKY NAV -->
+  <nav class="tabnav">
+    <div class="tabnav-inner" id="tabnav">
+      <a href="#metrics" data-target="metrics">ตัวเลขสำคัญ</a>
+      <a href="#training" data-target="training">ตารางฝึก</a>
+      <a href="#rpe" data-target="rpe">RPE</a>
+      <a href="#progression" data-target="progression">Progression</a>
+      <a href="#nutrition" data-target="nutrition">โภชนาการ</a>
+      <a href="#benchmarks" data-target="benchmarks">เป้าหมาย</a>
+    </div>
+  </nav>
+
+  <!-- METRICS -->
+  <section class="section" id="metrics">
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-label">น้ำหนัก</div>
+        <div class="metric-val">67.15<span class="metric-unit">kg</span></div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">BMR</div>
+        <div class="metric-val">1,676<span class="metric-unit">kcal</span></div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">TDEE</div>
+        <div class="metric-val">2,600<span class="metric-unit">kcal</span></div>
+      </div>
+      <div class="metric target">
+        <div class="metric-label">เป้าหมาย</div>
+        <div class="metric-val">2,900<span class="metric-unit">kcal</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRAINING -->
+  <section class="section" id="training">
+    <div class="section-header">
+      <h2 class="section-title">ตารางฝึกรายสัปดาห์</h2>
+      <span class="section-num">01 / 05</span>
+    </div>
+    <p class="section-sub">ฝึก 5 วัน · พักวันพุธและวันอาทิตย์ — เลือกวันที่ต้องการดูรายละเอียด</p>
+
+    <div class="day-tabs" role="tablist">
+      <button class="day-tab" data-day="1" role="tab">
+        <div class="day-num">MON · จ.</div>
+        <div class="day-name">Upper Push</div>
+        <div class="day-muscle">อก · ไหล่ · ไตรเซป</div>
+      </button>
+      <button class="day-tab" data-day="2" role="tab">
+        <div class="day-num">TUE · อ.</div>
+        <div class="day-name">Lower Body</div>
+        <div class="day-muscle">ขา · สะโพก · Core</div>
+      </button>
+      <button class="day-tab rest" data-day="rest1" role="tab">
+        <div class="day-num">WED · พ.</div>
+        <div class="day-name">Rest</div>
+        <div class="day-muscle">วันพัก</div>
+      </button>
+      <button class="day-tab" data-day="3" role="tab">
+        <div class="day-num">THU · พฤ.</div>
+        <div class="day-name">Upper Pull</div>
+        <div class="day-muscle">หลัง · Lat · ไบเซป</div>
+      </button>
+      <button class="day-tab" data-day="4" role="tab">
+        <div class="day-num">FRI · ศ.</div>
+        <div class="day-name">Core &amp; Cardio</div>
+        <div class="day-muscle">Pilates · เดิน</div>
+      </button>
+      <button class="day-tab" data-day="5" role="tab">
+        <div class="day-num">SAT · ส.</div>
+        <div class="day-name">Aesthetic</div>
+        <div class="day-muscle">ไหล่ · หลัง · Glute</div>
+      </button>
+      <button class="day-tab rest" data-day="rest2" role="tab">
+        <div class="day-num">SUN · อา.</div>
+        <div class="day-name">Rest</div>
+        <div class="day-muscle">วันพัก</div>
+      </button>
+    </div>
+
+    <!-- DAY 1 - MONDAY -->
+    <div class="day-panel" data-panel="1" style="--day-color: var(--push);">
+      <div class="panel-header">
+        <span class="panel-badge">MON · จันทร์</span>
+        <h3 class="panel-title">Upper Push — อก · ไหล่ · ไตรเซป</h3>
+      </div>
+      <div class="callout callout-warmup">
+        <span class="callout-icon">WARMUP</span>
+        <p><strong>Scapula Hygiene</strong> (2–3 นาที) ก่อนทุก Upper day<br>Band Pull-Apart 2×20 · Scapular Circles 1–2 นาที</p>
+      </div>
+      <div class="ex-table-wrap">
+        <table class="ex-table">
+          <thead><tr><th>Exercise</th><th>Sets×Reps</th><th>Tempo</th><th>Rest</th><th>RPE</th></tr></thead>
+          <tbody>
+            <tr><td class="ex-name">DB Floor Press</td><td class="ex-spec">4×8–10</td><td class="ex-spec">3-1-1-0</td><td class="ex-spec">90s</td><td><span class="rpe-pill">7–8</span></td></tr>
+            <tr><td class="ex-name">Standing DB Overhead Press</td><td class="ex-spec">3×10–12</td><td class="ex-spec">2-0-1-1</td><td class="ex-spec">90s</td><td><span class="rpe-pill">8</span></td></tr>
+            <tr><td class="ex-name">DB Lateral Raises</td><td class="ex-spec">4×15–20</td><td class="ex-spec">2-0-1-1</td><td class="ex-spec">60s</td><td><span class="rpe-pill">8–9</span></td></tr>
+            <tr><td class="ex-name">DB Floor Flyes</td><td class="ex-spec">3×10–12</td><td class="ex-spec">3-1-1-0</td><td class="ex-spec">90s</td><td><span class="rpe-pill">7</span></td></tr>
+            <tr><td class="ex-name">Overhead DB Triceps Ext.</td><td class="ex-spec">3×12–15</td><td class="ex-spec">2-1-1-0</td><td class="ex-spec">60s</td><td><span class="rpe-pill">8</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ex-cards">
+        <div class="ex-card"><div class="ex-card-name">DB Floor Press</div><div class="ex-card-grid"><div class="ex-card-stat"><div class="ex-card-stat-label">Sets×Reps</div><div class="ex-card-stat-val">4×8–10</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Tempo</div><div class="ex-card-stat-val">3-1-1-0</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Rest</div><div class="ex-card-stat-val">90s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">RPE</div><div class="ex-card-stat-val">7–8</div></div></div></div>
+        <div class="ex-card"><div class="ex-card-name">Standing DB Overhead Press</div><div class="ex-card-grid"><div class="ex-card-stat"><div class="ex-card-stat-label">Sets×Reps</div><div class="ex-card-stat-val">3×10–12</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Tempo</div><div class="ex-card-stat-val">2-0-1-1</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Rest</div><div class="ex-card-stat-val">90s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">RPE</div><div class="ex-card-stat-val">8</div></div></div></div>
+        <div class="ex-card"><div class="ex-card-name">DB Lateral Raises</div><div class="ex-card-grid"><div class="ex-card-stat"><div class="ex-card-stat-label">Sets×Reps</div><div class="ex-card-stat-val">4×15–20</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Tempo</div><div class="ex-card-stat-val">2-0-1-1</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Rest</div><div class="ex-card-stat-val">60s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">RPE</div><div class="ex-card-stat-val">8–9</div></div></div></div>
+        <div class="ex-card"><div class="ex-card-name">DB Floor Flyes</div><div class="ex-card-grid"><div class="ex-card-stat"><div class="ex-card-stat-label">Sets×Reps</div><div class="ex-card-stat-val">3×10–12</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Tempo</div><div class="ex-card-stat-val">3-1-1-0</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Rest</div><div class="ex-card-stat-val">90s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">RPE</div><div class="ex-card-stat-val">7</div></div></div></div>
+        <div class="ex-card"><div class="ex-card-name">Overhead DB Triceps Ext.</div><div class="ex-card-grid"><div class="ex-card-stat"><div class="ex-card-stat-label">Sets×Reps</div><div class="ex-card-stat-val">3×12–15</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Tempo</div><div class="ex-card-stat-val">2-1-1-0</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Rest</div><div class="ex-card-stat-val">60s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">RPE</div><div class="ex-card-stat-val">8</div></div></div></div>
+      </div>
+    </div>
+
+    <!-- DAY 2 - TUESDAY -->
+    <div class="day-panel" data-panel="2" style="--day-color: var(--legs);">
+      <div class="panel-header">
+        <span class="panel-badge">TUE · อังคาร</span>
+        <h3 class="panel-title">Lower Body — ขา · สะโพก · Core</h3>
+      </div>
+      <div class="ex-table-wrap">
+        <table class="ex-table">
+          <thead><tr><th>Exercise</th><th>Sets×Reps</th><th>Tempo</th><th>Rest</th><th>RPE</th></tr></thead>
+          <tbody>
+            <tr><td class="ex-name">DB Romanian Deadlift (RDL)</td><td class="ex-spec">4×8–10</td><td class="ex-spec">3-1-1-1</td><td class="ex-spec">120s</td><td><span class="rpe-pill">7–8</span></td></tr>
+            <tr><td class="ex-name">DB Glute Bridge</td><td class="ex-spec">4×10–12</td><td class="ex-spec">2-1-1-2</td><td class="ex-spec">90s</td><td><span class="rpe-pill">8</span></td></tr>
+            <tr><td class="ex-name">Banded Clamshells</td><td class="ex-spec">3×15/leg</td><td class="ex-spec">2-0-1-2</td><td class="ex-spec">60s</td><td><span class="rpe-pill">8</span></td></tr>
+            <tr><td class="ex-name">Standing Calf Raises</td><td class="ex-spec">4×15–20</td><td class="ex-spec">2-2-1-1</td><td class="ex-spec">60s</td><td><span class="rpe-pill">8–9</span></td></tr>
+            <tr><td class="ex-name">Lying Floor Leg Curls</td><td class="ex-spec">3×10–12</td><td class="ex-spec">3-0-1-0</td><td class="ex-spec">90s</td><td><span class="rpe-pill">7</span></td></tr>
+            <tr><td class="ex-name"><span class="tag-new">NEW</span>Pallof Press / Side Plank</td><td class="ex-spec">2×12 · 30–45s</td><td class="ex-spec">Controlled</td><td class="ex-spec">60s</td><td><span class="rpe-pill">7</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ex-cards">
+        <div class="ex-card"><div class="ex-card-name">DB Romanian Deadlift (RDL)</div><div class="ex-card-grid"><div class="ex-card-stat"><div class="ex-card-stat-label">Sets×Reps</div><div class="ex-card-stat-val">4×8–10</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Tempo</div><div class="ex-card-stat-val">3-1-1-1</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Rest</div><div class="ex-card-stat-val">120s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">RPE</div><div class="ex-card-stat-val">7–8</div></div></div></div>
+        <div class="ex-card"><div class="ex-card-name">DB Glute Bridge</div><div class="ex-card-grid"><div class="ex-card-stat"><div class="ex-card-stat-label">Sets×Reps</div><div class="ex-card-stat-val">4×10–12</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Tempo</div><div class="ex-card-stat-val">2-1-1-2</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Rest</div><div class="ex-card-stat-val">90s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">RPE</div><div class="ex-card-stat-val">8</div></div></div></div>
+        <div class="ex-card"><div class="ex-card-name">Banded Clamshells</div><div class="ex-card-grid"><div class="ex-card-stat"><div class="ex-card-stat-label">Sets×Reps</div><div class="ex-card-stat-val">3×15/leg</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Tempo</div><div class="ex-card-stat-val">2-0-1-2</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Rest</div><div class="ex-card-stat-val">60s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">RPE</div><div class="ex-card-stat-val">8</div></div></div></div>
+        <div class="ex-card"><div class="ex-card-name">Standing Calf Raises</div><div class="ex-card-grid"><div class="ex-card-stat"><div class="ex-card-stat-label">Sets×Reps</div><div class="ex-card-stat-val">4×15–20</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Tempo</div><div class="ex-card-stat-val">2-2-1-1</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Rest</div><div class="ex-card-stat-val">60s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">RPE</div><div class="ex-card-stat-val">8–9</div></div></div></div>
+        <div class="ex-card"><div class="ex-card-name">Lying Floor Leg Curls</div><div class="ex-card-grid"><div class="ex-card-stat"><div class="ex-card-stat-label">Sets×Reps</div><div class="ex-card-stat-val">3×10–12</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Tempo</div><div class="ex-card-stat-val">3-0-1-0</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Rest</div><div class="ex-card-stat-val">90s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">RPE</div><div class="ex-card-stat-val">7</div></div></div></div>
+        <div class="ex-card"><div class="ex-card-name"><span class="tag-new">NEW</span>Pallof Press / Side Plank</div><div class="ex-card-grid"><div class="ex-card-stat"><div class="ex-card-stat-label">Sets×Reps</div><div class="ex-card-stat-val">2×12</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Tempo</div><div class="ex-card-stat-val">Control</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Rest</div><div class="ex-card-stat-val">60s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">RPE</div><div class="ex-card-stat-val">7</div></div></div></div>
+      </div>
+      <div class="callout callout-green">
+        <span class="callout-icon">TIP</span>
+        <p>Anti-rotation core ช่วยแก้ <strong>Anterior Pelvic Tilt (APT)</strong> เร็วขึ้นอย่างชัดเจน</p>
+      </div>
+    </div>
+
+    <!-- DAY 3 - THURSDAY -->
+    <div class="day-panel" data-panel="3" style="--day-color: var(--pull);">
+      <div class="panel-header">
+        <span class="panel-badge">THU · พฤหัส</span>
+        <h3 class="panel-title">Upper Pull — หลัง · Lat · ไบเซป</h3>
+      </div>
+      <div class="callout callout-warmup">
+        <span class="callout-icon">WARMUP</span>
+        <p><strong>Scapula Hygiene</strong> (2–3 นาที) เหมือนวันที่ 1</p>
+      </div>
+      <div class="ex-table-wrap">
+        <table class="ex-table">
+          <thead><tr><th>Exercise</th><th>Sets×Reps</th><th>Tempo</th><th>Rest</th><th>RPE</th></tr></thead>
+          <tbody>
+            <tr><td class="ex-name">DB Bent-Over Rows</td><td class="ex-spec">4×8–10</td><td class="ex-spec">2-1-1-1</td><td class="ex-spec">90s</td><td><span class="rpe-pill">7–8</span></td></tr>
+            <tr><td class="ex-name">Pull-Ups / Band Pulldowns *</td><td class="ex-spec">3×AMRAP</td><td class="ex-spec">2-0-1-0</td><td class="ex-spec">120s</td><td><span class="rpe-pill">8–9</span></td></tr>
+            <tr><td class="ex-name">DB Pullovers (on Floor)</td><td class="ex-spec">3×10–12</td><td class="ex-spec">3-1-1-0</td><td class="ex-spec">90s</td><td><span class="rpe-pill">7</span></td></tr>
+            <tr><td class="ex-name">Standing Reverse DB Flyes</td><td class="ex-spec">4×12–15</td><td class="ex-spec">2-0-1-1</td><td class="ex-spec">60s</td><td><span class="rpe-pill">8</span></td></tr>
+            <tr><td class="ex-name">DB Hammer Curls</td><td class="ex-spec">3×10–12</td><td class="ex-spec">2-0-1-1</td><td class="ex-spec">60s</td><td><span class="rpe-pill">8</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ex-cards">
+        <div class="ex-card"><div class="ex-card-name">DB Bent-Over Rows</div><div class="ex-card-grid"><div class="ex-card-stat"><div class="ex-card-stat-label">Sets×Reps</div><div class="ex-card-stat-val">4×8–10</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Tempo</div><div class="ex-card-stat-val">2-1-1-1</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Rest</div><div class="ex-card-stat-val">90s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">RPE</div><div class="ex-card-stat-val">7–8</div></div></div></div>
+        <div class="ex-card"><div class="ex-card-name">Pull-Ups / Band Pulldowns *</div><div class="ex-card-grid"><div class="ex-card-stat"><div class="ex-card-stat-label">Sets×Reps</div><div class="ex-card-stat-val">3×AMRAP</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Tempo</div><div class="ex-card-stat-val">2-0-1-0</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Rest</div><div class="ex-card-stat-val">120s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">RPE</div><div class="ex-card-stat-val">8–9</div></div></div></div>
+        <div class="ex-card"><div class="ex-card-name">DB Pullovers (on Floor)</div><div class="ex-card-grid"><div class="ex-card-stat"><div class="ex-card-stat-label">Sets×Reps</div><div class="ex-card-stat-val">3×10–12</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Tempo</div><div class="ex-card-stat-val">3-1-1-0</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Rest</div><div class="ex-card-stat-val">90s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">RPE</div><div class="ex-card-stat-val">7</div></div></div></div>
+        <div class="ex-card"><div class="ex-card-name">Standing Reverse DB Flyes</div><div class="ex-card-grid"><div class="ex-card-stat"><div class="ex-card-stat-label">Sets×Reps</div><div class="ex-card-stat-val">4×12–15</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Tempo</div><div class="ex-card-stat-val">2-0-1-1</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Rest</div><div class="ex-card-stat-val">60s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">RPE</div><div class="ex-card-stat-val">8</div></div></div></div>
+        <div class="ex-card"><div class="ex-card-name">DB Hammer Curls</div><div class="ex-card-grid"><div class="ex-card-stat"><div class="ex-card-stat-label">Sets×Reps</div><div class="ex-card-stat-val">3×10–12</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Tempo</div><div class="ex-card-stat-val">2-0-1-1</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Rest</div><div class="ex-card-stat-val">60s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">RPE</div><div class="ex-card-stat-val">8</div></div></div></div>
+      </div>
+      <div class="callout callout-blue">
+        <span class="callout-icon">PULL-UP</span>
+        <p><strong>Progression Plan</strong> — สัปดาห์ 1–2 ใช้ band ช่วย → สัปดาห์ 3 ทำ negative pull-up (ลงช้า 3 วินาที) → สัปดาห์ 4 พยายาม 1–2 reps เต็ม</p>
+      </div>
+    </div>
+
+    <!-- DAY 4 - FRIDAY -->
+    <div class="day-panel" data-panel="4" style="--day-color: var(--core);">
+      <div class="panel-header">
+        <span class="panel-badge">FRI · ศุกร์</span>
+        <h3 class="panel-title">Core &amp; Cardio — Pilates · เดิน</h3>
+      </div>
+      <div class="ex-table-wrap">
+        <table class="ex-table">
+          <thead><tr><th>Exercise</th><th>Duration/Reps</th><th>Rest</th><th>RPE</th></tr></thead>
+          <tbody>
+            <tr><td class="ex-name">Low-Impact Cardio (เดิน/ปั่น)</td><td class="ex-spec">25 นาที</td><td class="ex-spec">—</td><td><span class="rpe-pill">5–6</span></td></tr>
+            <tr><td class="ex-name">Pilates "The Hundred"</td><td class="ex-spec">1×100 pumps</td><td class="ex-spec">—</td><td><span class="rpe-pill">7</span></td></tr>
+            <tr><td class="ex-name">Bird-Dog</td><td class="ex-spec">3×10/side</td><td class="ex-spec">45s</td><td><span class="rpe-pill">6</span></td></tr>
+            <tr><td class="ex-name">Deadbug</td><td class="ex-spec">3×10/side</td><td class="ex-spec">45s</td><td><span class="rpe-pill">7</span></td></tr>
+            <tr><td class="ex-name">Forearm Plank</td><td class="ex-spec">3×45–60s</td><td class="ex-spec">60s</td><td><span class="rpe-pill">8</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ex-cards">
+        <div class="ex-card"><div class="ex-card-name">Low-Impact Cardio</div><div class="ex-card-grid"><div class="ex-card-stat"><div class="ex-card-stat-label">Duration</div><div class="ex-card-stat-val">25 min</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Type</div><div class="ex-card-stat-val">เดิน/ปั่น</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Rest</div><div class="ex-card-stat-val">—</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">RPE</div><div class="ex-card-stat-val">5–6</div></div></div></div>
+        <div class="ex-card"><div class="ex-card-name">Pilates "The Hundred"</div><div class="ex-card-grid"><div class="ex-card-stat"><div class="ex-card-stat-label">Reps</div><div class="ex-card-stat-val">1×100</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Type</div><div class="ex-card-stat-val">Pumps</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Rest</div><div class="ex-card-stat-val">—</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">RPE</div><div class="ex-card-stat-val">7</div></div></div></div>
+        <div class="ex-card"><div class="ex-card-name">Bird-Dog</div><div class="ex-card-grid"><div class="ex-card-stat"><div class="ex-card-stat-label">Sets×Reps</div><div class="ex-card-stat-val">3×10/s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Tempo</div><div class="ex-card-stat-val">Control</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Rest</div><div class="ex-card-stat-val">45s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">RPE</div><div class="ex-card-stat-val">6</div></div></div></div>
+        <div class="ex-card"><div class="ex-card-name">Deadbug</div><div class="ex-card-grid"><div class="ex-card-stat"><div class="ex-card-stat-label">Sets×Reps</div><div class="ex-card-stat-val">3×10/s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Tempo</div><div class="ex-card-stat-val">Control</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Rest</div><div class="ex-card-stat-val">45s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">RPE</div><div class="ex-card-stat-val">7</div></div></div></div>
+        <div class="ex-card"><div class="ex-card-name">Forearm Plank</div><div class="ex-card-grid"><div class="ex-card-stat"><div class="ex-card-stat-label">Sets</div><div class="ex-card-stat-val">3×</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Time</div><div class="ex-card-stat-val">45–60s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Rest</div><div class="ex-card-stat-val">60s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">RPE</div><div class="ex-card-stat-val">8</div></div></div></div>
+      </div>
+    </div>
+
+    <!-- DAY 5 - SATURDAY -->
+    <div class="day-panel" data-panel="5" style="--day-color: var(--aesthetic);">
+      <div class="panel-header">
+        <span class="panel-badge">SAT · เสาร์</span>
+        <h3 class="panel-title">Aesthetic Blend — ไหล่ · หลัง · Posterior</h3>
+      </div>
+      <div class="callout callout-warmup">
+        <span class="callout-icon">WARMUP</span>
+        <p><strong>Scapula Hygiene</strong> (2–3 นาที) เหมือนวันที่ 1</p>
+      </div>
+      <div class="ex-table-wrap">
+        <table class="ex-table">
+          <thead><tr><th>Exercise</th><th>Sets×Reps</th><th>Tempo</th><th>Rest</th><th>RPE</th></tr></thead>
+          <tbody>
+            <tr><td class="ex-name">DB Lateral Raises</td><td class="ex-spec">4×15–20</td><td class="ex-spec">2-0-1-1</td><td class="ex-spec">60s</td><td><span class="rpe-pill">8–9</span></td></tr>
+            <tr><td class="ex-name">Single-Leg Glute Bridge</td><td class="ex-spec">3×10/leg</td><td class="ex-spec">2-1-1-1</td><td class="ex-spec">60s</td><td><span class="rpe-pill">7–8</span></td></tr>
+            <tr><td class="ex-name">DB Bent-Over Rows (Underhand)</td><td class="ex-spec">3×10–12</td><td class="ex-spec">2-1-1-1</td><td class="ex-spec">90s</td><td><span class="rpe-pill">8</span></td></tr>
+            <tr><td class="ex-name">Face Pulls / Reverse Flyes</td><td class="ex-spec">3×15</td><td class="ex-spec">2-0-1-2</td><td class="ex-spec">60s</td><td><span class="rpe-pill">8</span></td></tr>
+            <tr><td class="ex-name">Hollow Body Hold</td><td class="ex-spec">3×30–45s</td><td class="ex-spec">Static</td><td class="ex-spec">60s</td><td><span class="rpe-pill">8</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ex-cards">
+        <div class="ex-card"><div class="ex-card-name">DB Lateral Raises</div><div class="ex-card-grid"><div class="ex-card-stat"><div class="ex-card-stat-label">Sets×Reps</div><div class="ex-card-stat-val">4×15–20</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Tempo</div><div class="ex-card-stat-val">2-0-1-1</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Rest</div><div class="ex-card-stat-val">60s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">RPE</div><div class="ex-card-stat-val">8–9</div></div></div></div>
+        <div class="ex-card"><div class="ex-card-name">Single-Leg Glute Bridge</div><div class="ex-card-grid"><div class="ex-card-stat"><div class="ex-card-stat-label">Sets×Reps</div><div class="ex-card-stat-val">3×10/L</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Tempo</div><div class="ex-card-stat-val">2-1-1-1</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Rest</div><div class="ex-card-stat-val">60s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">RPE</div><div class="ex-card-stat-val">7–8</div></div></div></div>
+        <div class="ex-card"><div class="ex-card-name">DB Bent-Over Rows (Underhand)</div><div class="ex-card-grid"><div class="ex-card-stat"><div class="ex-card-stat-label">Sets×Reps</div><div class="ex-card-stat-val">3×10–12</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Tempo</div><div class="ex-card-stat-val">2-1-1-1</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Rest</div><div class="ex-card-stat-val">90s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">RPE</div><div class="ex-card-stat-val">8</div></div></div></div>
+        <div class="ex-card"><div class="ex-card-name">Face Pulls / Reverse Flyes</div><div class="ex-card-grid"><div class="ex-card-stat"><div class="ex-card-stat-label">Sets×Reps</div><div class="ex-card-stat-val">3×15</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Tempo</div><div class="ex-card-stat-val">2-0-1-2</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Rest</div><div class="ex-card-stat-val">60s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">RPE</div><div class="ex-card-stat-val">8</div></div></div></div>
+        <div class="ex-card"><div class="ex-card-name">Hollow Body Hold</div><div class="ex-card-grid"><div class="ex-card-stat"><div class="ex-card-stat-label">Sets</div><div class="ex-card-stat-val">3×</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Time</div><div class="ex-card-stat-val">30–45s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">Rest</div><div class="ex-card-stat-val">60s</div></div><div class="ex-card-stat"><div class="ex-card-stat-label">RPE</div><div class="ex-card-stat-val">8</div></div></div></div>
+      </div>
+    </div>
+
+    <!-- REST DAY - WEDNESDAY -->
+    <div class="day-panel" data-panel="rest1">
+      <div class="rest-panel">
+        <div class="rest-panel-icon">REST</div>
+        <div class="rest-panel-title">วันพุธ — Mid-week Recovery</div>
+        <p class="rest-panel-text">วันพักช่วยให้กล้ามเนื้อซ่อมแซมและเติบโต ระบบประสาท CNS ฟื้นตัว และลดความเสี่ยงบาดเจ็บในสัปดาห์ถัดไป</p>
+        <div class="rest-tips">
+          <div class="rest-tip">
+            <div class="rest-tip-label">Sleep</div>
+            <div class="rest-tip-val">7–9 ชั่วโมง</div>
+          </div>
+          <div class="rest-tip">
+            <div class="rest-tip-label">Activity</div>
+            <div class="rest-tip-val">เดินเบาๆ<br>20–30 นาที</div>
+          </div>
+          <div class="rest-tip">
+            <div class="rest-tip-label">Nutrition</div>
+            <div class="rest-tip-val">โปรตีนเต็ม<br>135 g</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REST DAY - SUNDAY -->
+    <div class="day-panel" data-panel="rest2">
+      <div class="rest-panel">
+        <div class="rest-panel-icon">REST</div>
+        <div class="rest-panel-title">วันอาทิตย์ — Full Recovery</div>
+        <p class="rest-panel-text">ปิดสัปดาห์ด้วยการพักเต็มที่ เตรียมพร้อมสำหรับสัปดาห์ใหม่ — ทบทวน progress ที่ผ่านมาและวางแผนน้ำหนักของสัปดาห์ถัดไป</p>
+        <div class="rest-tips">
+          <div class="rest-tip">
+            <div class="rest-tip-label">Sleep</div>
+            <div class="rest-tip-val">7–9 ชั่วโมง</div>
+          </div>
+          <div class="rest-tip">
+            <div class="rest-tip-label">Mobility</div>
+            <div class="rest-tip-val">Stretching<br>10–15 นาที</div>
+          </div>
+          <div class="rest-tip">
+            <div class="rest-tip-label">Mind</div>
+            <div class="rest-tip-val">รีวิวโปรแกรม<br>วางแผนใหม่</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RPE -->
+  <section class="section" id="rpe">
+    <div class="section-header">
+      <h2 class="section-title">RPE Scale</h2>
+      <span class="section-num">02 / 05</span>
+    </div>
+    <p class="section-sub">เหลือกี่ rep ในถัง? ใช้วัดความหนักของ set</p>
+    <div class="rpe-scale">
+      <div class="rpe-card" data-rpe="7">
+        <div class="rpe-num">7</div>
+        <div class="rpe-label"><strong>เบา</strong>เหลือ 3–4 reps</div>
+      </div>
+      <div class="rpe-card" data-rpe="8">
+        <div class="rpe-num">8</div>
+        <div class="rpe-label"><strong>ปานกลาง</strong>เหลือ 2–3 reps</div>
+      </div>
+      <div class="rpe-card" data-rpe="9">
+        <div class="rpe-num">9</div>
+        <div class="rpe-label"><strong>หนัก</strong>เหลือ 1–2 reps</div>
+      </div>
+      <div class="rpe-card" data-rpe="9.5">
+        <div class="rpe-num">9.5</div>
+        <div class="rpe-label"><strong>เกือบ Failure</strong>เหลือ 0–1 rep</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRESSION -->
+  <section class="section" id="progression">
+    <div class="section-header">
+      <h2 class="section-title">Progressive Overload</h2>
+      <span class="section-num">03 / 05</span>
+    </div>
+    <p class="section-sub">แผน 4 สัปดาห์ — เพิ่มความหนักทีละขั้น</p>
+    <div class="weeks">
+      <div class="week" data-week="1">
+        <div class="week-header"><span class="week-dot"></span><span class="week-num">WEEK 01</span></div>
+        <div class="week-focus">Baseline &amp; MMC</div>
+        <div class="week-detail">RPE 7 ตลอด — เน้น Mind-Muscle Connection ทำท่าให้ถูก form</div>
+      </div>
+      <div class="week" data-week="2">
+        <div class="week-header"><span class="week-dot"></span><span class="week-num">WEEK 02</span></div>
+        <div class="week-focus">Volume Expansion</div>
+        <div class="week-detail">เพิ่ม 1–2 reps ทุก set น้ำหนักเท่าเดิม tempo เท่าเดิม</div>
+      </div>
+      <div class="week" data-week="3">
+        <div class="week-header"><span class="week-dot"></span><span class="week-num">WEEK 03</span></div>
+        <div class="week-focus">Intensity Increase</div>
+        <div class="week-detail">RPE 8–9 เพิ่มน้ำหนัก 1–2 kg ถ้าทำถึง top ของ rep range ง่าย</div>
+      </div>
+      <div class="week" data-week="4">
+        <div class="week-header"><span class="week-dot"></span><span class="week-num">WEEK 04</span></div>
+        <div class="week-focus">Peak Hypertrophy</div>
+        <div class="week-detail">เพิ่ม 1 set ท่า delt+lat · Isolation → failure · Compound → RPE 9</div>
+      </div>
+    </div>
+    <div class="callout callout-amber">
+      <span class="callout-icon">WEEK 04</span>
+      <p><strong>Isolation</strong> (Lateral Raise, Reverse Fly) → push RPE 9.5 ได้ปลอดภัย<br><strong>Compound</strong> (Row, RDL, Floor Press) → หยุดที่ RPE ~9 เพื่อป้องกัน CNS overload</p>
+    </div>
+  </section>
+
+  <!-- NUTRITION -->
+  <section class="section" id="nutrition">
+    <div class="section-header">
+      <h2 class="section-title">โภชนาการ</h2>
+      <span class="section-num">04 / 05</span>
+    </div>
+    <p class="section-sub">เป้าหมาย 2,900 kcal/วัน · กระจาย 4–5 มื้อ</p>
+    <div class="macros">
+      <div class="macro" data-macro="protein">
+        <div class="macro-label">Protein · โปรตีน</div>
+        <div class="macro-val">135<span style="font-size:14px;color:var(--text-3);font-weight:500;margin-left:2px;">g</span></div>
+        <div class="macro-desc">2.0 g/kg · กระจาย 4–5 มื้อ</div>
+      </div>
+      <div class="macro" data-macro="carbs">
+        <div class="macro-label">Carbs · คาร์บ</div>
+        <div class="macro-val">360<span style="font-size:14px;color:var(--text-3);font-weight:500;margin-left:2px;">g</span></div>
+        <div class="macro-desc">50% ของแคลอรี · ข้าว ข้าวโอ๊ต + ผลไม้หลังออกกำลัง</div>
+      </div>
+      <div class="macro" data-macro="fat">
+        <div class="macro-label">Fats · ไขมัน</div>
+        <div class="macro-val">~80<span style="font-size:14px;color:var(--text-3);font-weight:500;margin-left:2px;">g</span></div>
+        <div class="macro-desc">ไขมันดี · ช่วยการผลิต testosterone</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENCHMARKS -->
+  <section class="section" id="benchmarks">
+    <div class="section-header">
+      <h2 class="section-title">เป้าหมายก่อนขึ้น Phase 2</h2>
+      <span class="section-num">05 / 05</span>
+    </div>
+    <p class="section-sub">Benchmarks — ผ่านครบทั้ง 4 ข้อ ค่อยขึ้น Phase ถัดไป</p>
+    <div class="bench-list">
+      <div class="bench">
+        <div class="bench-num">01</div>
+        <div class="bench-body">
+          <div class="bench-text">Forearm Plank ไม่โก่งสะโพก</div>
+          <div class="bench-target">เป้า: <strong>90 วินาที</strong></div>
+        </div>
+      </div>
+      <div class="bench">
+        <div class="bench-num">02</div>
+        <div class="bench-body">
+          <div class="bench-text">DB RDL ที่ RPE 8 ไม่ปวดหลังหรือเข่า</div>
+          <div class="bench-target">เป้า: <strong>ทำได้สม่ำเสมอ</strong></div>
+        </div>
+      </div>
+      <div class="bench">
+        <div class="bench-num">03</div>
+        <div class="bench-body">
+          <div class="bench-text">DB Floor Press น้ำหนักเพิ่มขึ้น</div>
+          <div class="bench-target">เป้า: <strong>+15–20%</strong> จากสัปดาห์ที่ 1</div>
+        </div>
+      </div>
+      <div class="bench">
+        <div class="bench-num">04</div>
+        <div class="bench-body">
+          <div class="bench-text">Pull-up แบบ strict จาก dead hang</div>
+          <div class="bench-target">เป้า: <strong>5 reps</strong> · intermediate: 3 reps</div>
+        </div>
+      </div>
+    </div>
+    <div class="callout callout-pink" style="margin-top:14px;">
+      <span class="callout-icon">DELOAD</span>
+      <p>หลังจบ Week 4 ให้ <strong>Deload 1 สัปดาห์</strong> ก่อน Phase 2 — ลดน้ำหนัก 40–50% และเหลือ 2 sets ต่อท่า เพื่อฟื้นฟู CNS และป้องกัน overuse injury</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    PHASE 01 · 4 WEEKS · HYPERTROPHY &amp; AESTHETIC FOUNDATION
+  </footer>
+
+</div>
+
+<script>
+// === Today detection & auto-open ===
+// JS getDay(): 0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat
+const dayMap = {
+  1: '1',      // Mon → Upper Push
+  2: '2',      // Tue → Lower Body
+  3: 'rest1',  // Wed → Rest
+  4: '3',      // Thu → Upper Pull
+  5: '4',      // Fri → Core & Cardio
+  6: '5',      // Sat → Aesthetic
+  0: 'rest2'   // Sun → Rest
+};
+const thaiDayNames = {
+  0: 'วันอาทิตย์', 1: 'วันจันทร์', 2: 'วันอังคาร', 3: 'วันพุธ',
+  4: 'วันพฤหัสบดี', 5: 'วันศุกร์', 6: 'วันเสาร์'
+};
+
+const tabs = document.querySelectorAll('.day-tab');
+const panels = document.querySelectorAll('.day-panel');
+
+function activateDay(dayKey) {
+  tabs.forEach(t => t.classList.remove('active'));
+  panels.forEach(p => p.classList.remove('active'));
+  const tab = document.querySelector(`.day-tab[data-day="${dayKey}"]`);
+  const panel = document.querySelector(`.day-panel[data-panel="${dayKey}"]`);
+  if (tab) tab.classList.add('active');
+  if (panel) panel.classList.add('active');
+}
+
+// === Today detection ===
+const today = new Date().getDay();
+const todayKey = dayMap[today];
+const todayDateStr = new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD format
+
+// === Checklist persistence with daily auto-reset ===
+const STORAGE_KEY = 'phase1_checklist';
+
+function loadChecklist() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return { date: todayDateStr, checked: {} };
+    const data = JSON.parse(raw);
+    // Auto-reset if date changed
+    if (data.date !== todayDateStr) {
+      return { date: todayDateStr, checked: {} };
+    }
+    return data;
+  } catch(e) {
+    return { date: todayDateStr, checked: {} };
+  }
+}
+
+function saveChecklist(data) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch(e) {}
+}
+
+let checklist = loadChecklist();
+saveChecklist(checklist); // Persist the (possibly reset) state
+
+// === Inject checkboxes into all exercise rows ===
+const checkSvg = '<svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+function makeCheckBtn(exId, isChecked) {
+  const btn = document.createElement('button');
+  btn.className = 'check-btn' + (isChecked ? ' checked' : '');
+  btn.dataset.exId = exId;
+  btn.setAttribute('aria-label', 'ติ๊กว่าทำเสร็จ');
+  btn.innerHTML = checkSvg;
+  return btn;
+}
+
+// Process each training panel (1-5, skip rest panels)
+const trainingPanels = ['1', '2', '3', '4', '5'];
+trainingPanels.forEach(panelId => {
+  const panel = document.querySelector(`.day-panel[data-panel="${panelId}"]`);
+  if (!panel) return;
+
+  // --- Add Progress bar at top ---
+  const progressBar = document.createElement('div');
+  progressBar.className = 'progress-bar';
+  progressBar.dataset.panelId = panelId;
+  progressBar.innerHTML = `
+    <div class="progress-track"><div class="progress-fill"></div></div>
+    <div class="progress-stats"><span class="done">0</span><span class="total">/0</span></div>
+    <button class="reset-btn" title="ล้างทั้งหมด">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9"/><path d="M3 4v5h5"/></svg>
+      Reset
+    </button>
+  `;
+  // Insert after panel-header
+  const panelHeader = panel.querySelector('.panel-header');
+  panelHeader.insertAdjacentElement('afterend', progressBar);
+
+  // --- Inject checkboxes into table rows ---
+  const table = panel.querySelector('.ex-table');
+  if (table) {
+    // Add header cell
+    const headRow = table.querySelector('thead tr');
+    const headCheck = document.createElement('th');
+    headCheck.className = 'col-check';
+    headCheck.innerHTML = '✓';
+    headRow.insertBefore(headCheck, headRow.firstChild);
+
+    // Add cell to each body row
+    const rows = table.querySelectorAll('tbody tr');
+    rows.forEach((row, idx) => {
+      const exId = `${panelId}-${idx}`;
+      const isChecked = !!checklist.checked[exId];
+      const td = document.createElement('td');
+      td.className = 'col-check';
+      td.appendChild(makeCheckBtn(exId, isChecked));
+      row.insertBefore(td, row.firstChild);
+      if (isChecked) row.classList.add('row-done');
+    });
+  }
+
+  // --- Inject checkboxes into mobile cards ---
+  const cards = panel.querySelectorAll('.ex-card');
+  cards.forEach((card, idx) => {
+    const exId = `${panelId}-${idx}`;
+    const isChecked = !!checklist.checked[exId];
+    card.insertBefore(makeCheckBtn(exId, isChecked), card.firstChild);
+    if (isChecked) card.classList.add('row-done');
+  });
+});
+
+// === Checkbox click handler (delegated) ===
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.check-btn');
+  if (!btn) return;
+
+  const exId = btn.dataset.exId;
+  const isNowChecked = !btn.classList.contains('checked');
+
+  // Update state
+  if (isNowChecked) {
+    checklist.checked[exId] = true;
+  } else {
+    delete checklist.checked[exId];
+  }
+  saveChecklist(checklist);
+
+  // Update ALL matching buttons (table + card view) and their rows
+  document.querySelectorAll(`.check-btn[data-ex-id="${exId}"]`).forEach(b => {
+    b.classList.toggle('checked', isNowChecked);
+    // Toggle row class on parent row/card
+    const row = b.closest('tr, .ex-card');
+    if (row) row.classList.toggle('row-done', isNowChecked);
+  });
+
+  // Update progress bars
+  updateAllProgress();
+});
+
+// === Reset button handler ===
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.reset-btn');
+  if (!btn) return;
+  const panelId = btn.closest('.progress-bar').dataset.panelId;
+  // Clear all checks for this panel
+  Object.keys(checklist.checked).forEach(key => {
+    if (key.startsWith(panelId + '-')) delete checklist.checked[key];
+  });
+  saveChecklist(checklist);
+  // Update UI
+  document.querySelectorAll(`.check-btn`).forEach(b => {
+    if (b.dataset.exId.startsWith(panelId + '-')) {
+      b.classList.remove('checked');
+      const row = b.closest('tr, .ex-card');
+      if (row) row.classList.remove('row-done');
+    }
+  });
+  updateAllProgress();
+});
+
+// === Update progress bars ===
+function updateAllProgress() {
+  trainingPanels.forEach(panelId => {
+    const bar = document.querySelector(`.progress-bar[data-panel-id="${panelId}"]`);
+    if (!bar) return;
+    const total = document.querySelectorAll(`.day-panel[data-panel="${panelId}"] .ex-table tbody tr`).length;
+    const done = Object.keys(checklist.checked).filter(k => k.startsWith(panelId + '-')).length;
+    const pct = total > 0 ? (done / total) * 100 : 0;
+    bar.querySelector('.progress-fill').style.width = pct + '%';
+    bar.querySelector('.done').textContent = done;
+    bar.querySelector('.total').textContent = '/' + total;
+    bar.classList.toggle('progress-complete', done === total && total > 0);
+  });
+}
+updateAllProgress();
+
+// === Activate today's panel ===
+const todayTab = document.querySelector(`.day-tab[data-day="${todayKey}"]`);
+if (todayTab) {
+  todayTab.style.position = 'relative';
+  const dot = document.createElement('span');
+  dot.className = 'today-dot';
+  dot.title = 'วันนี้';
+  todayTab.appendChild(dot);
+}
+activateDay(todayKey);
+
+// Show "today is..." badge + reset notice
+const sectionSub = document.querySelector('#training .section-sub');
+if (sectionSub) {
+  const isRest = todayKey.startsWith('rest');
+  sectionSub.innerHTML = `<span style="color:var(--accent);font-weight:500;">● วันนี้คือ${thaiDayNames[today]}${isRest ? ' (วันพัก)' : ''}</span> · เช็คลิสต์จะรีเซ็ตอัตโนมัติทุกวัน`;
+}
+
+// Tab click handler
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    activateDay(tab.dataset.day);
+  });
+});
+
+// === Sticky nav active state on scroll ===
+const navLinks = document.querySelectorAll('.tabnav a');
+const sections = Array.from(navLinks).map(a => document.getElementById(a.dataset.target));
+
+function updateActiveNav() {
+  const scrollPos = window.scrollY + 120;
+  let activeIdx = 0;
+  sections.forEach((sec, i) => {
+    if (sec && sec.offsetTop <= scrollPos) activeIdx = i;
+  });
+  navLinks.forEach((a, i) => a.classList.toggle('active', i === activeIdx));
+}
+window.addEventListener('scroll', updateActiveNav, { passive: true });
+updateActiveNav();
+
+// Smooth scroll with offset for sticky nav
+navLinks.forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.getElementById(link.dataset.target);
+    if (!target) return;
+    const top = target.getBoundingClientRect().top + window.scrollY - 70;
+    window.scrollTo({ top, behavior: 'smooth' });
+  });
+});
+</script>
+
+</body>
+</html>
